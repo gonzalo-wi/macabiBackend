@@ -12,6 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ParticipantRequestDto {
     
+    @NotNull(message = "Project ID is required")
+    private Long projectId;
+    
     @NotNull(message = "User ID is required")
     private Long userId;
 }

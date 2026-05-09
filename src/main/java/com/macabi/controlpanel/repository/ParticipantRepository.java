@@ -15,8 +15,6 @@ public interface ParticipantRepository extends JpaRepository<Participant, Long> 
     
     List<Participant> findByProjectId(Long projectId);
     
-    Optional<Participant> findByProjectIdAndEmail(Long projectId, String email);
-    
     Optional<Participant> findByProjectIdAndUserId(Long projectId, Long userId);
     
     boolean existsByProjectIdAndUserId(Long projectId, Long userId);
