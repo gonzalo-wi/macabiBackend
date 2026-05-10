@@ -14,13 +14,9 @@ import java.util.List;
 public interface BookingMealRepository extends JpaRepository<BookingMeal, Long> {
     
     List<BookingMeal> findByParticipant(Participant participant);
-    
     List<BookingMeal> findByParticipantId(Long participantId);
-    
     List<BookingMeal> findByParticipantIdAndActive(Long participantId, boolean active);
-    
     List<BookingMeal> findByMealId(Long mealId);
-    
     List<BookingMeal> findByTypeMenu(TypeMenu typeMenu);
     
     @Query("SELECT bm FROM BookingMeal bm WHERE bm.participant.project.id = :projectId AND bm.active = true")

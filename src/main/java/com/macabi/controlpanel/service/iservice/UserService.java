@@ -3,6 +3,7 @@ package com.macabi.controlpanel.service.iservice;
 import com.macabi.controlpanel.dto.user.UserRequestDto;
 import com.macabi.controlpanel.dto.user.UserResponseDto;
 import com.macabi.controlpanel.dto.user.UserUpdateDto;
+import com.macabi.controlpanel.model.enums.Role;
 
 import java.util.List;
 
@@ -37,4 +38,9 @@ public interface UserService {
      * Delete a user
      */
     void deleteUser(Long id);
+
+    /**
+     * Get users by role
+     */
+    List<UserResponseDto> getUsersByRole(Role role);
 }

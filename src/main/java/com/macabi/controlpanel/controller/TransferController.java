@@ -3,6 +3,7 @@ package com.macabi.controlpanel.controller;
 import com.macabi.controlpanel.dto.transfer.TransferRequestDto;
 import com.macabi.controlpanel.dto.transfer.TransferResponseDto;
 import com.macabi.controlpanel.dto.transfer.TransferUpdateDto;
+import com.macabi.controlpanel.model.enums.TypeTransfer;
 import com.macabi.controlpanel.service.iservice.TransferService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -43,7 +44,21 @@ public class TransferController {
         List<TransferResponseDto> transfers = transferService.getActiveTransfersByProjectId(projectId);
         return ResponseEntity.ok(transfers);
     }
-    
+
+    @GetMapping("/type/{typeTransfer}")
+    public ResponseEntity<List<TransferResponseDto>> getTransfersByTypeTransfer(@PathVariable TypeTransfer typeTransfer) {
+        List<TransferResponseDto> transfers = transferService.getTransfersByTypeTransfer(typeTransfer);
+        return ResponseEntity.ok(transfers);
+    }
+
+    @GetMapping("/project/{projectId}/type/{typeTransfer}")
+    public ResponseEntity<List<TransferResponseDto>> getTransfersByProjectIdAndTypeTransfer(
+            @PathVariable Long projectId,
+            @PathVariable TypeTransfer typeTransfer) {
+        List<TransferResponseDto> transfers = transferService.getTransfersByProjectIdAndTypeTransfer(projectId, typeTransfer);
+        return ResponseEntity.ok(transfers);
+    }
+
     @PostMapping
     public ResponseEntity<TransferResponseDto> createTransfer(@Valid @RequestBody TransferRequestDto transferDto) {
         TransferResponseDto createdTransfer = transferService.createTransfer(transferDto);

@@ -3,6 +3,7 @@ package com.macabi.controlpanel.controller;
 import com.macabi.controlpanel.dto.user.UserRequestDto;
 import com.macabi.controlpanel.dto.user.UserResponseDto;
 import com.macabi.controlpanel.dto.user.UserUpdateDto;
+import com.macabi.controlpanel.model.enums.Role;
 import com.macabi.controlpanel.service.iservice.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -24,6 +25,12 @@ public class UserController {
     public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         List<UserResponseDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/admins")
+    public ResponseEntity<List<UserResponseDto>> getAdmins() {
+        List<UserResponseDto> admins = userService.getUsersByRole(Role.ADMIN);
+        return ResponseEntity.ok(admins);
     }
     
     @GetMapping("/{id}")

@@ -7,6 +7,7 @@ import com.macabi.controlpanel.exception.DuplicateEmailException;
 import com.macabi.controlpanel.exception.ResourceNotFoundException;
 import com.macabi.controlpanel.mapper.UserMapper;
 import com.macabi.controlpanel.model.User;
+import com.macabi.controlpanel.model.enums.Role;
 import com.macabi.controlpanel.repository.UserRepository;
 import com.macabi.controlpanel.service.iservice.UserService;
 import lombok.RequiredArgsConstructor;
@@ -78,6 +79,14 @@ public class UserServiceImpl implements UserService {
         userRepository.delete(user);
     }
     
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserResponseDto> getUsersByRole(Role role) {
+        return userRepository.findByRole(role).stream()
+                .map(userMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
     // Private validation methods
     
     private User findUserById(Long id) {

@@ -104,6 +104,23 @@ public class MenuServiceImpl implements MenuService {
         var menu = findMenuById(id);
         menuRepository.delete(menu);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MenuResponseDto> getMenusByTypeMenu(TypeMenu typeMenu) {
+        return menuRepository.findByTypeMenu(typeMenu).stream()
+                .map(menuMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<MenuResponseDto> getMenusByProjectIdAndTypeMenu(Long projectId, TypeMenu typeMenu) {
+        validateProjectExists(projectId);
+        return menuRepository.findByProjectIdAndTypeMenu(projectId, typeMenu).stream()
+                .map(menuMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
     
     // Metodos privados
     

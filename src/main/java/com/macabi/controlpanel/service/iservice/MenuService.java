@@ -14,6 +14,8 @@ public interface MenuService {
     List<MenuResponseDto> getMenusByProjectId(Long projectId);
     List<MenuResponseDto> getActiveMenusByProjectId(Long projectId);
     MenuResponseDto getMenuByProjectDateAndType(Long projectId, LocalDate date, TypeMenu typeMenu);
+    List<MenuResponseDto> getMenusByTypeMenu(TypeMenu typeMenu);
+    List<MenuResponseDto> getMenusByProjectIdAndTypeMenu(Long projectId, TypeMenu typeMenu);
     MenuResponseDto createMenu(MenuRequestDto menuDto);
     MenuResponseDto updateMenu(Long id, MenuUpdateDto menuDto);
     void deleteMenu(Long id);

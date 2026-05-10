@@ -13,13 +13,10 @@ import java.util.Optional;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
     
-    List<Menu> findByProject(Project project);
-    
-    List<Menu> findByProjectId(Long projectId);
-    
-    List<Menu> findByProjectIdAndActive(Long projectId, boolean active);
-    
-    Optional<Menu> findByProjectIdAndDateAndTypeMenu(Long projectId, LocalDate date, TypeMenu typeMenu);
-    
+    List<Menu> findByProject(Project project);    
+    List<Menu> findByProjectId(Long projectId);    
+    List<Menu> findByProjectIdAndActive(Long projectId, boolean active);    
+    Optional<Menu> findByProjectIdAndDateAndTypeMenu(Long projectId, LocalDate date, TypeMenu typeMenu);    
     List<Menu> findByTypeMenu(TypeMenu typeMenu);
+    List<Menu> findByProjectIdAndTypeMenu(Long projectId, TypeMenu typeMenu);
 }

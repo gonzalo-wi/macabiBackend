@@ -7,6 +7,7 @@ import com.macabi.controlpanel.exception.ResourceNotFoundException;
 import com.macabi.controlpanel.mapper.TransferMapper;
 import com.macabi.controlpanel.model.Project;
 import com.macabi.controlpanel.model.Transfer;
+import com.macabi.controlpanel.model.enums.TypeTransfer;
 import com.macabi.controlpanel.repository.ProjectRepository;
 import com.macabi.controlpanel.repository.TransferRepository;
 import com.macabi.controlpanel.service.iservice.TransferService;
@@ -82,7 +83,24 @@ public class TransferServiceImpl implements TransferService {
         var transfer = findTransferById(id);
         transferRepository.delete(transfer);
     }
-    
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TransferResponseDto> getTransfersByTypeTransfer(TypeTransfer typeTransfer) {
+        return transferRepository.findByTypeTransfer(typeTransfer).stream()
+                .map(transferMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<TransferResponseDto> getTransfersByProjectIdAndTypeTransfer(Long projectId, TypeTransfer typeTransfer) {
+        validateProjectExists(projectId);
+        return transferRepository.findByProjectIdAndTypeTransfer(projectId, typeTransfer).stream()
+                .map(transferMapper::toResponseDto)
+                .collect(Collectors.toList());
+    }
+
     // Metodos Privados 
     
     private Transfer findTransferById(Long id) {

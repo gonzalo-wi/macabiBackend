@@ -11,14 +11,11 @@ import java.util.List;
 
 @Repository
 public interface TransferRepository extends JpaRepository<Transfer, Long> {
-    
+ 
     List<Transfer> findByProject(Project project);
-    
     List<Transfer> findByProjectId(Long projectId);
-    
     List<Transfer> findByProjectIdAndActive(Long projectId, boolean active);
-    
     List<Transfer> findByTypeTransfer(TypeTransfer typeTransfer);
-    
+    List<Transfer> findByProjectIdAndTypeTransfer(Long projectId, TypeTransfer typeTransfer);
     List<Transfer> findByDateBetween(LocalDateTime startDate, LocalDateTime endDate);
 }

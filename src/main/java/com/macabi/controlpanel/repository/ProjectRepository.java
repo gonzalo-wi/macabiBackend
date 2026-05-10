@@ -12,10 +12,7 @@ import java.util.List;
 public interface ProjectRepository extends JpaRepository<Project, Long> {
     
     List<Project> findByUser(User user);
-    
     List<Project> findByUserId(Long userId);
-    
     List<Project> findByDate(LocalDate date);
-    
     List<Project> findByNameContainingIgnoreCase(String name);
 }

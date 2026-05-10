@@ -13,13 +13,9 @@ import java.util.List;
 public interface BookingTransferRepository extends JpaRepository<BookingTransfer, Long> {
     
     List<BookingTransfer> findByParticipant(Participant participant);
-    
     List<BookingTransfer> findByParticipantId(Long participantId);
-    
     List<BookingTransfer> findByParticipantIdAndActive(Long participantId, boolean active);
-    
     List<BookingTransfer> findByTransferId(Long transferId);
-    
     @Query("SELECT bt FROM BookingTransfer bt WHERE bt.participant.project.id = :projectId AND bt.active = true")
     List<BookingTransfer> findByProjectIdAndActive(@Param("projectId") Long projectId);
     

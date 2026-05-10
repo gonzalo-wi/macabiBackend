@@ -46,6 +46,20 @@ public class MenuController {
         List<MenuResponseDto> menus = menuService.getActiveMenusByProjectId(projectId);
         return ResponseEntity.ok(menus);
     }
+
+    @GetMapping("/type/{typeMenu}")
+    public ResponseEntity<List<MenuResponseDto>> getMenusByTypeMenu(@PathVariable TypeMenu typeMenu) {
+        List<MenuResponseDto> menus = menuService.getMenusByTypeMenu(typeMenu);
+        return ResponseEntity.ok(menus);
+    }
+
+    @GetMapping("/project/{projectId}/type/{typeMenu}")
+    public ResponseEntity<List<MenuResponseDto>> getMenusByProjectIdAndTypeMenu(
+            @PathVariable Long projectId,
+            @PathVariable TypeMenu typeMenu) {
+        List<MenuResponseDto> menus = menuService.getMenusByProjectIdAndTypeMenu(projectId, typeMenu);
+        return ResponseEntity.ok(menus);
+    }
     
     @GetMapping("/project/{projectId}/search")
     public ResponseEntity<MenuResponseDto> getMenuByProjectDateAndType(
