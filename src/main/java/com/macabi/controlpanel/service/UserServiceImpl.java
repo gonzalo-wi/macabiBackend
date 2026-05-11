@@ -11,6 +11,10 @@ import com.macabi.controlpanel.model.enums.Role;
 import com.macabi.controlpanel.repository.UserRepository;
 import com.macabi.controlpanel.service.iservice.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -19,7 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
     
     private static final String  USER_RESOURCE    = "User";
     private static final String  ID_FIELD         = "id";
@@ -87,8 +91,21 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    // UserDetailsService — usado por Spring Security para autenticar
+    @Override
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+        return org.springframework.security.core.userdetails.User.builder()
+                .username(user.getEmail())
+                .password(user.getPassword())
+                .authorities(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()))
+                .build();
+    }
+
     // Private validation methods
-    
+
     private User findUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(

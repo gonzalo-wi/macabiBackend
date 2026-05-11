@@ -31,7 +31,7 @@ public class ParticipantServiceImpl implements ParticipantService {
     private final ParticipantRepository participantRepository;
     private final ProjectRepository     projectRepository;
     private final UserRepository        userRepository;
-    private final ParticipantMapper participantMapper;
+    private final ParticipantMapper     participantMapper;
 
     @Override
     @Transactional(readOnly = true)
